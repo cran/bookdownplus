@@ -131,7 +131,7 @@
 %------------------------------------------------
 
 %\renewcommand*{\acsfont}[1]{\textssc{#1}} % For MinionPro
-\renewcommand{\bflabel}[1]{{#1}\hfill} % Fix the list of acronyms
+%\renewcommand{\bflabel}[1]{{#1}\hfill} % Fix the list of acronyms
 
 %------------------------------------------------
 
@@ -371,7 +371,12 @@ pdfproducer={LaTeX with hyperref and classicthesis}
 \vfill
 
 \begingroup
+$if(subtitle)$
 \color{Maroon}\spacedallcaps{$title$} \\$subtitle$\\ \bigskip % Thesis title
+$else$
+\color{Maroon}\spacedallcaps{$title$} \\ \bigskip % Thesis title
+$endif$
+
 \endgroup
 
 \spacedlowsmallcaps{$author$} % Your name

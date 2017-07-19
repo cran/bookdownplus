@@ -4,68 +4,130 @@
 \alias{bookdownplus}
 \title{Create demo files for building books with R bookdown package.}
 \usage{
-bookdownplus(template = "thesis_classic",
-  title = "R bookdownplus: Authoring varied types of books and documents with R bookdown",
-  author = "Peng Zhao", from_address = "15 Robin Hood Lane",
-  from_town = "11758  Massapequa, Long Island, New York",
-  from_phone = "62762524", from_email = "dapengde@live.com",
-  to_who = "receiver", to_address = "receiver address",
-  to_town = "100000 Beijing, China", type = c("business", "personal")[2],
-  fontsize = c("tiny", "scriptsize", "footnotesize", "small", "normalsize",
-  "large", "Large", "LARGE", "huge", "Huge")[5], email = "pzhao@pzhao.net",
-  institute = "Institute of Ecology, Univ. Innsbruck",
-  longinstitute = "Institute of Ecology, University of Innsbruck, Austria",
-  web = "pzhao.org", logo = "images/logo.png",
-  backimg = "images/logo.png", bibliofiles = "bib/bib.bib",
-  theme = c("eco", "ocean", "rose")[1])
+bookdownplus(template = "thesis_classic", more_output = NULL, 
+    title = "R bookdownplus", author = "Peng Zhao", render = TRUE, 
+    output_name = NA, mail_from_address = "15 Robin Hood Lane", 
+    mail_from_town = "11758  Massapequa, Long Island, New York", 
+    mail_from_phone = "31415926", mail_from_mobile = "31415927", 
+    mail_from_fax = "31415928", mail_from_email = "dapengde@live.com", 
+    mail_to_who = "recipient", mail_to_affiliation = "University of Innsbruck", 
+    mail_to_address = "recipient address", mail_to_town = "100000 Beijing, China", 
+    mail_opening = "Dear Sir or Madam,", mail_closing = "Yours faithfully,", 
+    mail_date = "25 June, 2017", mail_style = c("casual", "classic", 
+        "oldstyle", "banking")[1], mail_theme = c("blue", "orange", 
+        "green", "red", "purple", "grey", "black")[1], mail_font = c("sffamily", 
+        "calligra ")[1], mail_fontsize = c("10pt", "11pt", 
+        "12pt")[3], mail_bodysize = c("tiny", "scriptsize", 
+        "footnotesize", "small", "normalsize", "large", "Large", 
+        "LARGE", "huge", "Huge")[5], poster_email = "pzhao@pzhao.net", 
+    poster_institute = "Institute of Ecology, Univ. Innsbruck", 
+    poster_longinstitute = "Institute of Ecology, University of Innsbruck, Austria", 
+    poster_web = "pzhao.org", poster_logo = "images/logo.png", 
+    poster_backimg = "images/logo.png", poster_bibliofiles = "bib/bib.bib", 
+    poster_theme = c("eco", "ocean", "rose")[1])
 }
 \arguments{
-\item{template}{character. Choose a template for your book or doc. The default template is 'thesis_classic'. Available templates are:
+\item{template}{character. Choose a template for your book or doc. The default template is 'thesis_classic'. Available templates are (run \code{template()} for hints):
 \itemize{
 \item 'article', academic article,
+\item 'article_mdpi',   academic article by mdpi,
 \item 'article_zh', academic article in Chinese,
 \item 'calendar',  monthly or weekly calendar,
 \item 'chemistry',   book with chemical molecular formulae and equations
 \item 'chemistry_zh', chemistry book in Chinese,
+\item 'discussion', article in discussion format,
 \item 'guitar',  book with guitar chords,
-\item 'mail', personal or business mail,
 \item 'journal', laboratory journal or personal diary,
-\item 'yihui_mini',  a mini demo book by Yihui Xie,
-\item 'yihui_demo',  the original demo book by Yihui Xie,
-\item 'yihui_zh', the demo in Chinese by Yihui Xie,
-\item 'article_mdpi',   academic article by mdpi,
+\item 'mail', personal or business mail,
+\item 'nte_zh', a template from Nothing to envy, in Chinese
+\item 'poem', poem book,
 \item 'thesis_classic' (default), classic thesis,
+\item 'thesis_mypku_zh',  thesis of my Peking Uni., in Chinese,
 \item 'thesis_ubt',  thesis of University of Bayreuth,
-\item 'thesis_zju',  thesis of Zhejiang Uni., in Chinese,
-\item 'poster', poster,
-\item 'poem', poem book.
+\item 'thesis_zju_zh',  thesis of Zhejiang Uni., in Chinese,
+\item 'yihui_demo',  the original demo book by Yihui Xie,
+\item 'yihui_mini',  a mini demo book by Yihui Xie,
+\item 'yihui_zh', the demo in Chinese by Yihui Xie,
+\item 'article2_zh', article in two columns in Chinese, not ready yet,
+\item 'poster', poster.
+}}
+
+\item{more_output}{optional output formats besides pdf_book, which can be (run \code{more_output()} for hints):
+\itemize{
+\item NULL (default)
+\item 'word_document2'
+\item 'html_document2'
+\item 'epub_book'
+\item 'gitbook'
 }}
 
 \item{title}{character. book title.}
 
 \item{author}{character. book author.}
 
-\item{from_address}{character. sender's address (Street and No.) for mail template}
+\item{render}{logical. whether to render automatically}
 
-\item{from_town}{character. sender's town for mail template}
+\item{output_name}{chracter. the name of the output files. If NA (default), the template name will be used.}
 
-\item{from_phone}{character. sender's phone number for mail templae}
+\item{mail_from_address}{character. sender's address (Street and No.) for mail template}
 
-\item{from_email}{character. sender's email for mail template}
+\item{mail_from_town}{character. sender's town for mail template}
 
-\item{to_who}{character. receiver's name for mail template}
+\item{mail_from_phone}{character. sender's phone number for mail templae}
 
-\item{to_address}{character. receiver's address (Street and No.) for mail template}
+\item{mail_from_mobile}{character. sender's mobile phone number for mail templae}
 
-\item{to_town}{character. receiver's town for mail template}
+\item{mail_from_fax}{character. sender's fax number for mail templae}
 
-\item{type}{character. The mail type for mail template. Available types are:
+\item{mail_from_email}{character. sender's email for mail template}
+
+\item{mail_to_who}{character. recipient's name for mail template}
+
+\item{mail_to_affiliation}{character. recipient's affiliation (institute, university, etc.) for mail template}
+
+\item{mail_to_address}{character. recipient's address (Street and No.) for mail template}
+
+\item{mail_to_town}{character. recipient's town for mail template}
+
+\item{mail_opening}{character. opening of the mail, such as 'Dear Thomas, '}
+
+\item{mail_closing}{character. closing of the mail, such as 'Yours, '}
+
+\item{mail_date}{character. The date appearing in the mail}
+
+\item{mail_style}{character. The mail style for mail template. Available styles are (run \code{mail_style()} for hints):
 \itemize{
-\item 'business',
-\item 'personal' (default).
+\item 'casual' (default),
+\item 'classic',
+\item 'oldstyle', and
+\item 'banking'
 }}
 
-\item{fontsize}{character. fontsize of the mail body for mail template. Available sizes are:
+\item{mail_theme}{character. The mail theme for mail template. Available themes are (run \code{mail_theme()} for hints):
+\itemize{
+\item 'blue' (default),
+\item 'orange',
+\item 'green',
+\item 'red',
+\item 'purple',
+\item 'grey', and
+\item 'black'
+}}
+
+\item{mail_font}{character. The font of the body for mail template. Available fonts are (run \code{mail_font()} for hints):
+\itemize{
+\item 'sffamily' (default), or
+\item 'calligra'
+}}
+
+\item{mail_fontsize}{character. fontsize of the mail for mail template. Available sizes are (run \code{mail_fontsize()} for hints):
+\itemize{
+\item '10pt',
+\item '11pt', and
+\item '12pt' (default)
+}}
+
+\item{mail_bodysize}{character. fontsize of the mail body for mail template. Available sizes are (run \code{mail_bodysize()} for hints):
 \itemize{
 \item 'tiny',
 \item 'scriptsize',
@@ -79,24 +141,28 @@ bookdownplus(template = "thesis_classic",
 \item 'Huge'.
 }}
 
-\item{email}{character. author's email for poster template}
+\item{poster_email}{character. author's email for poster template}
 
-\item{institute}{character. for poster template}
+\item{poster_institute}{character. for poster template}
 
-\item{longinstitute}{character. for poster template}
+\item{poster_longinstitute}{character. for poster template}
 
-\item{web}{character. for poster template}
+\item{poster_web}{character. for poster template}
 
-\item{logo}{character. The path of the logo image. for poster template}
+\item{poster_logo}{character. The path of the logo image. for poster template}
 
-\item{backimg}{character. The path of the background image. for poster template}
+\item{poster_backimg}{character. The path of the background image. for poster template}
 
-\item{bibliofiles}{character. The path of the bib file for poster template}
+\item{poster_bibliofiles}{character. The path of the bib file for poster template}
 
-\item{theme}{character. theme for poster template. available themes are
--'eco' (default),
--'ocean',
--'rose'.}
+\item{poster_theme}{character. theme for poster template. available themes are
+\itemize{
+\item 'eco' (default),
+\item 'ocean',
+\item 'rose',
+\item 'night',
+\item 'ice'.
+}}
 }
 \value{
 demo files to build with bookdown
@@ -113,6 +179,6 @@ Full documentation of \code{bookdownplus} can be found in the book \href{https:/
 }
 }
 \examples{
-bookdownplus()
-bookdownplus(template = "article")
+bookdownplus(render = FALSE)
+bookdownplus(template = "article", render = FALSE)
 }

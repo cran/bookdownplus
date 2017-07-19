@@ -1,62 +1,283 @@
+#' Available templates
+#'
+#' @param dataframe logical. FALSE by default. whether return a vector or a data frame.
+#'
+#' @return a vector or a dataframe displaying available templates.
+#' @export
+#'
+#' @examples template()
+template <- function(dataframe = FALSE){
+  temp <- c('article',  #academic article,
+            'article_mdpi',  #  academic article by mdpi,
+            'article_zh',  #academic article in Chinese,
+            'calendar',  # monthly or weekly calendar,
+            'chemistry',  #  book with chemical molecular formulae and equations
+            'chemistry_zh',  #chemistry book in Chinese,
+            'discussion',  #article in discussion format,
+            'guitar',  # book with guitar chords,
+            'journal',  #laboratory journal or personal diary,
+            'mail',  #personal or business mail,
+            'nte_zh',  #a template from Nothing to envy, in Chinese
+            'poem',  #poem book,
+            'thesis_classic', # (default), classic thesis,
+            'thesis_mypku_zh',  # thesis of my Peking Uni., in Chinese,
+            'thesis_ubt',  # thesis of University of Bayreuth,
+            'thesis_zju_zh',  # thesis of Zhejiang Uni., in Chinese,
+            'yihui_demo',  # the original demo book by Yihui Xie,
+            'yihui_mini',  # a mini demo book by Yihui Xie,
+            'yihui_zh',  #the demo in Chinese by Yihui Xie,
+#            'article2_zh',  #article in two columns in Chinese, not ready yet,
+            'poster')  #poster.
+  tempdf <- data.frame(i = 1:length(temp),
+                       template = temp)
+  if (dataframe) return(tempdf)
+  return(temp)
+}
+
+#' Available output formats besides pdf_book
+#'
+#' @param dataframe logical. FALSE by default. whether return a vector or a data frame.
+#'
+#' @return a vector or a dataframe.
+#' @export
+#'
+#' @examples more_output()
+more_output <- function(dataframe = FALSE){
+  temp <- c('word_document2',
+            'html_document2',
+            'epub_book',
+            'gitbook')
+  tempdf <- data.frame(i = 1:length(temp),
+                       template = temp)
+  if (dataframe) return(tempdf)
+  return(temp)
+}
+
+#' Available styles for mail template
+#'
+#' @param dataframe logical. FALSE by default. whether return a vector or a data frame.
+#'
+#' @return a vector or a dataframe.
+#' @export
+#'
+#' @examples mail_style()
+mail_style <- function(dataframe = FALSE){
+  temp <- c('casual', # (default),
+    'classic',
+    'oldstyle',
+    'banking'
+  )
+  tempdf <- data.frame(i = 1:length(temp),
+                       template = temp)
+  if (dataframe) return(tempdf)
+  return(temp)
+}
+
+#' Available themes for mail template
+#'
+#' @param dataframe logical. FALSE by default. whether return a vector or a data frame.
+#'
+#' @return a vector or a dataframe.
+#' @export
+#'
+#' @examples mail_theme()
+mail_theme <- function(dataframe = FALSE){
+  temp <- c('blue', # (default),
+            'orange',
+            'green',
+            'red',
+            'purple',
+            'grey', # and
+            'black'
+  )
+  tempdf <- data.frame(i = 1:length(temp),
+                       template = temp)
+  if (dataframe) return(tempdf)
+  return(temp)
+}
+
+#' Available fonts for mail body
+#'
+#' @param dataframe logical. FALSE by default. whether return a vector or a data frame.
+#'
+#' @return a vector or a dataframe.
+#' @export
+#'
+#' @examples mail_font()
+mail_font <- function(dataframe = FALSE){
+  temp <- c('sffamily', # (default), or
+            'calligra'
+  )
+  tempdf <- data.frame(i = 1:length(temp),
+                       template = temp)
+  if (dataframe) return(tempdf)
+  return(temp)
+}
+
+#' Available fontsize for mail template
+#'
+#' @param dataframe logical. FALSE by default. whether return a vector or a data frame.
+#'
+#' @return a vector or a dataframe.
+#' @export
+#'
+#' @examples mail_fontsize()
+mail_fontsize <- function(dataframe = FALSE){
+  temp <- c('10pt',
+            '11pt',
+            '12pt' #(default)
+  )
+  tempdf <- data.frame(i = 1:length(temp),
+                       template = temp)
+  if (dataframe) return(tempdf)
+  return(temp)
+}
+
+
+#' Available fontsize for mail body
+#'
+#' @param dataframe logical. FALSE by default. whether return a vector or a data frame.
+#'
+#' @return a vector or a dataframe.
+#' @export
+#'
+#' @examples mail_bodysize()
+mail_bodysize <- function(dataframe = FALSE){
+  temp <- c('tiny',
+            'scriptsize',
+            'footnotesize',
+            'small',
+            'normalsize', # (default),
+            'large',
+            'Large',
+            'LARGE',
+            'huge',
+            'Huge'
+  )
+  tempdf <- data.frame(i = 1:length(temp),
+                       template = temp)
+  if (dataframe) return(tempdf)
+  return(temp)
+}
+
+#' Available themes for poster templatemail body
+#'
+#' @param dataframe logical. FALSE by default. whether return a vector or a data frame.
+#'
+#' @return a vector or a dataframe.
+#' @export
+#'
+#' @examples poster_theme()
+poster_theme <- function(dataframe = FALSE){
+  temp <- c('eco', # default
+            'ocean',
+            'rose',
+            'night',
+            'ice'
+  )
+  tempdf <- data.frame(i = 1:length(temp),
+                       template = temp)
+  if (dataframe) return(tempdf)
+  return(temp)
+}
+
 #' Create demo files for building books with R bookdown package.
 #'
-#' @param template character. Choose a template for your book or doc. The default template is 'thesis_classic'. Available templates are:
+#' @param template character. Choose a template for your book or doc. The default template is 'thesis_classic'. Available templates are (run `template()` for hints):
 #' - 'article', academic article,
+#' - 'article_mdpi',   academic article by mdpi,
 #' - 'article_zh', academic article in Chinese,
 #' - 'calendar',  monthly or weekly calendar,
 #' - 'chemistry',   book with chemical molecular formulae and equations
 #' - 'chemistry_zh', chemistry book in Chinese,
+#' - 'discussion', article in discussion format,
 #' - 'guitar',  book with guitar chords,
-#' - 'mail', personal or business mail,
 #' - 'journal', laboratory journal or personal diary,
-#' - 'yihui_mini',  a mini demo book by Yihui Xie,
-#' - 'yihui_demo',  the original demo book by Yihui Xie,
-#' - 'yihui_zh', the demo in Chinese by Yihui Xie,
-#' - 'article_mdpi',   academic article by mdpi,
+#' - 'mail', personal or business mail,
+#' - 'nte_zh', a template from Nothing to envy, in Chinese
+#' - 'poem', poem book,
 #' - 'thesis_classic' (default), classic thesis,
+#' - 'thesis_mypku_zh',  thesis of my Peking Uni., in Chinese,
 #' - 'thesis_ubt',  thesis of University of Bayreuth,
-#' - 'thesis_zju',  thesis of Zhejiang Uni., in Chinese,
-#' - 'poster', poster,
-#' - 'poem', poem book.
+#' - 'thesis_zju_zh',  thesis of Zhejiang Uni., in Chinese,
+#' - 'yihui_demo',  the original demo book by Yihui Xie,
+#' - 'yihui_mini',  a mini demo book by Yihui Xie,
+#' - 'yihui_zh', the demo in Chinese by Yihui Xie,
+#' - 'article2_zh', article in two columns in Chinese, not ready yet,
+#' - 'poster', poster.
 #' @param title character. book title.
 #' @param author character. book author.
-#' @param from_address character. sender's address (Street and No.) for mail template
-#' @param from_town  character. sender's town for mail template
-#' @param from_phone character. sender's phone number for mail templae
-#' @param from_email character. sender's email for mail template
-#' @param to_who character. receiver's name for mail template
-#' @param to_address character. receiver's address (Street and No.) for mail template
-#' @param to_town character. receiver's town for mail template
-#' @param type character. The mail type for mail template. Available types are:
-#' - 'business', 
-#' - 'personal' (default).
-#' @param fontsize character. fontsize of the mail body for mail template. Available sizes are:
-#' - 'tiny', 
-#' - 'scriptsize', 
-#' - 'footnotesize', 
-#' - 'small', 
+#' @param more_output optional output formats besides pdf_book, which can be (run `more_output()` for hints):
+#' - NULL (default)
+#' - 'word_document2'
+#' - 'html_document2'
+#' - 'epub_book'
+#' - 'gitbook'
+#' @param output_name chracter. the name of the output files. If NA (default), the template name will be used.
+#' @param render logical. whether to render automatically
+#' @param mail_opening character. opening of the mail, such as 'Dear Thomas, '
+#' @param mail_closing  character. closing of the mail, such as 'Yours, '
+#' @param mail_from_address character. sender's address (Street and No.) for mail template
+#' @param mail_from_town  character. sender's town for mail template
+#' @param mail_from_phone character. sender's phone number for mail templae
+#' @param mail_from_mobile character. sender's mobile phone number for mail templae
+#' @param mail_from_fax character. sender's fax number for mail templae
+#' @param mail_from_email character. sender's email for mail template
+#' @param mail_to_who character. recipient's name for mail template
+#' @param mail_to_affiliation character. recipient's affiliation (institute, university, etc.) for mail template
+#' @param mail_to_address character. recipient's address (Street and No.) for mail template
+#' @param mail_to_town character. recipient's town for mail template
+#' @param mail_date character. The date appearing in the mail
+#' @param mail_style character. The mail style for mail template. Available styles are (run `mail_style()` for hints):
+#' - 'casual' (default),
+#' - 'classic',
+#' - 'oldstyle', and
+#' - 'banking'
+#' @param mail_theme character. The mail theme for mail template. Available themes are (run `mail_theme()` for hints):
+#' - 'blue' (default),
+#' - 'orange',
+#' - 'green',
+#' - 'red',
+#' - 'purple',
+#' - 'grey', and
+#' - 'black'
+#' @param mail_font character. The font of the body for mail template. Available fonts are (run `mail_font()` for hints):
+#' - 'sffamily' (default), or
+#' - 'calligra'
+#' @param mail_fontsize character. fontsize of the mail for mail template. Available sizes are (run `mail_fontsize()` for hints):
+#' - '10pt',
+#' - '11pt', and
+#' - '12pt' (default)
+#' @param mail_bodysize character. fontsize of the mail body for mail template. Available sizes are (run `mail_bodysize()` for hints):
+#' - 'tiny',
+#' - 'scriptsize',
+#' - 'footnotesize',
+#' - 'small',
 #' - 'normalsize' (default),
-#' - 'large', 
-#' - 'Large', 
-#' - 'LARGE', 
+#' - 'large',
+#' - 'Large',
+#' - 'LARGE',
 #' - 'huge',
 #' - 'Huge'.
-#' @param email character. author's email for poster template
-#' @param institute character. for poster template
-#' @param longinstitute  character. for poster template
-#' @param web   character. for poster template
-#' @param logo  character. The path of the logo image. for poster template
-#' @param backimg  character. The path of the background image. for poster template
-#' @param bibliofiles  character. The path of the bib file for poster template
-#' @param theme  character. theme for poster template. available themes are 
-#' -'eco' (default), 
-#' -'ocean', 
-#' -'rose'.
+#'
+#' @param poster_email character. author's email for poster template
+#' @param poster_institute character. for poster template
+#' @param poster_longinstitute  character. for poster template
+#' @param poster_web   character. for poster template
+#' @param poster_logo  character. The path of the logo image. for poster template
+#' @param poster_backimg  character. The path of the background image. for poster template
+#' @param poster_bibliofiles  character. The path of the bib file for poster template
+#' @param poster_theme  character. theme for poster template. available themes are
+#' - 'eco' (default),
+#' - 'ocean',
+#' - 'rose',
+#' - 'night',
+#' - 'ice'.
 #' @return demo files to build with bookdown
 #' @export
 #' @examples
-#' bookdownplus()
-#' bookdownplus(template = 'article')
+#' bookdownplus(render = FALSE)
+#' bookdownplus(template = 'article', render = FALSE)
 #' @description
 #' Technically, `bookdownplus` is a collection and selector of R bookdown templates. `bookdownplus` helps you write academic journal articles, guitar books, chemical equations, mails, calendars, and diaries. R `bookdownplus` extends the features of `bookdown`, and simplifies the procedure. Users only have to choose a template, clarify the book title and author name, and then focus on writing the text. No need to struggle in YAML and LaTeX.
 #'
@@ -69,36 +290,47 @@
 #' - Write your own text in `index.Rmd` and `body.Rmd`, and build your own lovely book.
 bookdownplus <- function( ######
   template = 'thesis_classic',
-  title ='R bookdownplus: Authoring varied types of books and documents with R bookdown',
+  more_output = NULL,
+  title ='R bookdownplus',
   author = 'Peng Zhao',
-
+  render = TRUE,
+  output_name = NA,
   # for mail template only
-  from_address = '15 Robin Hood Lane',
-  from_town = '11758  Massapequa, Long Island, New York',
-  from_phone = '62762524',
-  from_email = 'dapengde@live.com',
-  to_who = 'receiver',
-  to_address = 'receiver address',
-  to_town = '100000 Beijing, China',
-  type = c('business', 'personal')[2],
-  fontsize = c(
+  mail_from_address = '15 Robin Hood Lane',
+  mail_from_town = '11758  Massapequa, Long Island, New York',
+  mail_from_phone = '31415926',
+  mail_from_mobile = '31415927',
+  mail_from_fax = '31415928',
+  mail_from_email = 'dapengde@live.com',
+  mail_to_who = 'recipient',
+  mail_to_affiliation = 'University of Innsbruck',
+  mail_to_address = 'recipient address',
+  mail_to_town = '100000 Beijing, China',
+  mail_opening = 'Dear Sir or Madam,',
+  mail_closing = 'Yours faithfully,',
+  mail_date = '25 June, 2017',
+  mail_style = c('casual', 'classic', 'oldstyle', 'banking')[1],
+  mail_theme = c('blue', 'orange', 'green', 'red', 'purple', 'grey', 'black')[1],
+  mail_font = c('sffamily', 'calligra ')[1],
+  mail_fontsize = c('10pt', '11pt', '12pt')[3],
+  mail_bodysize = c(
     'tiny', 'scriptsize', 'footnotesize', 'small', 'normalsize',
     'large', 'Large', 'LARGE', 'huge','Huge') [5],
 
   # for poster template only
-  email = 'pzhao@pzhao.net',
-  institute = 'Institute of Ecology, Univ. Innsbruck',
-  longinstitute = 'Institute of Ecology, University of Innsbruck, Austria',
-  web = 'pzhao.org',
-  logo = 'images/logo.png',
-  backimg = 'images/logo.png',
-  bibliofiles = 'bib/bib.bib',
-  theme = c('eco', 'ocean', 'rose')[1]) {
+  poster_email = 'pzhao@pzhao.net',
+  poster_institute = 'Institute of Ecology, Univ. Innsbruck',
+  poster_longinstitute = 'Institute of Ecology, University of Innsbruck, Austria',
+  poster_web = 'pzhao.org',
+  poster_logo = 'images/logo.png',
+  poster_backimg = 'images/logo.png',
+  poster_bibliofiles = 'bib/bib.bib',
+  poster_theme = c('eco', 'ocean', 'rose')[1]) {
 
   ###### internal functions ######
   ### copy necessary files to the working directory
   copyfolder <- function(folder = 'images') {
-    dir.create(folder)
+    if (!dir.exists(folder)) dir.create(folder)
     mypath <- paste0(.libPaths(), '/bookdownplus/', folder)
     file.copy(from = dir(mypath[dir.exists(mypath)][1], full.names = TRUE), to = folder)
   }
@@ -106,6 +338,7 @@ bookdownplus <- function( ######
   ###  define body file name, dependent on the template name
   bodyfile <- function(x) {
     if (x == 'article_zh') return('rmd/body_article_zh.Rmd')
+    if (x == 'article2_zh') return('rmd/body_article_zh.Rmd')
     if (x == 'calendar') return('rmd/body_calendar.tex')
     if (x == 'chemistry') return('rmd/body_chemistry.Rmd')
     if (x == 'chemistry_zh') return('rmd/body_chemistry_zh.Rmd')
@@ -114,7 +347,10 @@ bookdownplus <- function( ######
     if (x == 'journal') return('rmd/body_journal.Rmd')
     if (x == 'yihui_zh') return('rmd/body_yihui_zh.Rmd')
     if (x == 'thesis_classic') return('rmd/body_thesis_classic.Rmd')
-    if (x == 'thesis_zju') return('rmd/body_thesis_zju.Rmd')
+    if (x == 'thesis_zju_zh') return('rmd/body_thesis_zju_zh.Rmd')
+    if (x == 'thesis_mypku_zh') return('rmd/body_thesis_mypku_zh.Rmd')
+    if (x == 'nte_zh') return('rmd/body_nte_zh.Rmd')
+    if (x == 'discussion') return('rmd/body_discussion.Rmd')
     if (x == 'poem') return('rmd/body_poem.Rmd')
     'rmd/body.Rmd'
   }
@@ -137,19 +373,18 @@ bookdownplus <- function( ######
   }
 
   ###### copy folders and files to the working dir ######
-  lapply(X = c('backup', 'bib', 'rmd', 'images', 'style','tex'), FUN = copyfolder)
+  lapply(X = c('backup', 'bib', 'rmd', 'images', 'style','tex', 'fonts'), FUN = copyfolder)
   mypath <- paste0(.libPaths(), '/bookdownplus/proj/')
   file.copy(from = paste0(mypath[dir.exists(mypath)][1], 'bookdownplus'), to = 'bookdownplus.Rproj.')
 
   ###### prepare index.Rmd ######
-  book_filename <- template
   index <- readLines(paste0('rmd/index_', template, '.Rmd'), encoding = 'UTF-8')
   index[grep('^title: "', index)] <- paste0('title: "', title, '"')
   index[grep('^author: "', index)] <- paste0('author: "', author, '"')
   # index[grep('titleshort: "', index)] <- paste0('titleshort: "', titleshort, '"')
 
   if (template == 'poster') {
-    index[grep('^%% template=tex/poster.tex', index)] <- paste0('%% template=tex/poster_', theme, '.tex')
+    index[grep('^%% template=tex/poster.tex', index)] <- paste0('%% template=tex/poster_', poster_theme, '.tex')
   }
   backup('index.Rmd')
   writeLines(index, 'index.Rmd', useBytes = TRUE)
@@ -157,6 +392,7 @@ bookdownplus <- function( ######
   if (template != 'poster') {
 
     ###### prepare _bookdown.yml, which defines the output filename of the book. ######
+    book_filename <- ifelse(is.na(output_name), template, output_name)
     filenameyml <- readLines('rmd/_bookdown.yml', encoding = 'UTF-8')
     filenameyml[grep('book_filename: ', filenameyml)] <- paste0('book_filename: ', book_filename)
     backup('_bookdown.yml')
@@ -165,7 +401,14 @@ bookdownplus <- function( ######
     ###### prepare _output.yml, which defines the output files of gitbook and epub formats. comment it if you only need pdf. ######
     backup('_output.yml')
     # file.copy('rmd/_output.yml', '_output.yml', copy.mode = FALSE, overwrite = TRUE)
-
+    # output <- readLines('rmd/_output.yml')
+    if (!is.null(more_output)) {
+      outputyml <- file("_output.yml","w")
+      for (ic in more_output) {
+        writeLines(readLines(paste0('rmd/_output_', ic, '.yml')), con = outputyml, sep= "\n")
+      }
+      close(outputyml)
+      }
     ###### prepare body.Rmd ######
     bodydemo <- bodyfile(template)
     bodynew <- paste0('body', substr(bodydemo, nchar(bodydemo)-3, nchar(bodydemo)))
@@ -175,33 +418,60 @@ bookdownplus <- function( ######
     ###### exceptions ######
 
     ### article_zh needs an additional abstract.tex file
-    if (template == 'article_zh') {
+    if (template %in% c('article_zh', 'article2_zh')) {
       backup('abstract.tex')
-      file.copy('tex/template_article_zh_abstract.tex', 'abstract.tex', copy.mode = FALSE, overwrite = TRUE)
+      file.copy(paste0('tex/template_', template, '_abstract.tex'), 'abstract.tex', copy.mode = FALSE, overwrite = TRUE)
     }
 
     ### mail needs an additional template_mail.tex as a before_body part.
     if (template == 'mail') {
       tmail <- readLines('tex/template_mail.tex')
-      tmail[51] <- paste0('{\\bfseries ', author, '}\\\\[.35ex]')
-      tmail[53] <- paste0(from_address, '\\\\')
-      tmail[54] <- paste0(from_town, '\\\\[.35ex]')
-      tmail[55] <- paste0('\\Telefon~', from_phone, '\\\\')
-      tmail[56] <- paste0('\\Letter~\\href{mailto:', from_email, '}{', from_email, '}')
-
-      tmail[61] <- paste0('{\\bfseries ', to_who, '}\\\\[.35ex]')
-      tmail[63] <- paste0(to_address, '\\\\')
-      tmail[64] <- paste0(to_town, '\\\\[.35ex]')
-
-      tmail[78] <- paste0('{\\bfseries ', author, '}\\\\')
-      tmail[75] <- paste(switch(type, 'business' = '\\sffamily', 'personal' = '\\calligra' ),
-                         fontsize, sep = '\\')
+      # tmail[51] <- paste0('{\\bfseries ', author, '}\\\\[.35ex]')
+      # tmail[53] <- paste0(from_address, '\\\\')
+      # tmail[54] <- paste0(from_town, '\\\\[.35ex]')
+      # tmail[55] <- paste0('\\Telefon~', from_phone, '\\\\')
+      # tmail[56] <- paste0('\\Letter~\\href{mailto:', from_email, '}{', from_email, '}')
+      #
+      # tmail[61] <- paste0('{\\bfseries ', to_who, '}\\\\[.35ex]')
+      # tmail[63] <- paste0(to_address, '\\\\')
+      # tmail[64] <- paste0(to_town, '\\\\[.35ex]')
+      #
+      # tmail[78] <- paste0('{\\bfseries ', author, '}\\\\')
+      # tmail[75] <- paste(switch(type, 'business' = '\\sffamily', 'personal' = '\\calligra' ),
+      #                    fontsize, sep = '\\')
+      tmail[9] <- paste0('\\documentclass[', mail_fontsize, ',a4paper,sans]{style/moderncv}')
+      tmail[12] <- paste0('\\moderncvstyle{', mail_style, '}')
+      tmail[13] <- paste0('\\moderncvcolor{', mail_theme, '}')
+      tmail[27] <- paste0('\\name{', author, '}{}')
+      tmail[29] <- paste0('\\address{', mail_from_address, '}{', mail_from_town,'}{}')
+      tmail[30] <- paste0('\\phone[mobile]{', mail_from_mobile, '}')
+      tmail[31] <- paste0('\\phone[fixed]{', mail_from_phone, '}')
+      tmail[32] <- paste0('\\phone[fax]{', mail_from_fax, '}')
+      tmail[33] <- paste0('\\email{', mail_from_email, '}')
+      tmail[54] <- paste0('\\recipient{', mail_to_affiliation, '}{',mail_to_address, '\\\\', mail_to_town, '}')
+      tmail[55] <- paste0('\\date{', mail_date, '}')
+      tmail[56] <- paste0('\\opening{', mail_opening, '}')
+      tmail[57] <- paste0('\\closing{', mail_closing, '}')
+      tmail[59] <- paste0('\\', mail_font, '\\', mail_bodysize)
       writeLines(tmail, 'tex/template_mail_user.tex')
     }
 
     ### article_mdpi needs an additional bst file
     if (template == 'article_mdpi') {
       file.copy('style/mdpi.bst', 'mdpi.bst')
+    }
+
+    if (render) {
+      bookdown::render_book(
+        'index.Rmd',
+        output_format = paste0('bookdown::', c('pdf_book', more_output)))
+      htmlfile <- paste0(template, '.html')
+      bookdir <- '_book'
+      if (file.exists(htmlfile)) {
+        if (!dir.exists(bookdir)) dir.create(bookdir)
+        file.copy(htmlfile, paste0(bookdir, '/', htmlfile))
+        file.remove(htmlfile)
+      }
     }
   }
 }
