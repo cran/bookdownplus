@@ -2,25 +2,18 @@
 % Please edit documentation in R/fun.R
 \name{share}
 \alias{share}
-\title{Prepare a template to contribute to bookdownplus}
+\title{Prepare a relaxed template folder to contribute to bookdownplus}
 \usage{
-share(template_name = "new", bodyfile = "body.Rmd", indexfile = "index.Rmd", 
-    texfile = "t.tex")
+share(template_name = NA)
 }
 \arguments{
-\item{template_name}{character. tempalte name.}
-
-\item{bodyfile}{character. name of the body file.}
-
-\item{indexfile}{character. name of the index file.}
-
-\item{texfile}{character. name of the texfile}
+\item{template_name}{character. The tempalte name.}
 }
 \value{
-organzed folders and files.
+Prepare a folder for contribution.
 }
 \description{
-Prepare a template to contribute to bookdownplus
+Prepare a relaxed template folder to contribute to bookdownplus
 }
 \examples{
 share()
