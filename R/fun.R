@@ -7,13 +7,14 @@
 get_template <- function(){
   # local tempaltes
   path_local <- paste0(path.package('bookdownplus'), '/templates/-list.csv')
-  df_t <- read.csv(path_local, stringsAsFactors = FALSE)
+  df_t <- read.csv(path_local, stringsAsFactors = FALSE, encoding = 'UTF-8')
   df_t$location <- 'local'
   # remote templates on github
-  path_remote <- 'https://raw.githubusercontent.com/pzhaonet/bookdownplus/master/upload/-list.csv'
+  # path_remote <- 'https://raw.githubusercontent.com/pzhaonet/bookdownplus/master/upload/-list.csv'
+  path_remote <- 'd:/github/bookdownplus/upload/-list.csv'
   df_r <- try(read.csv(path_remote), silent = T)
   if (class(df_r) != 'try-error') {
-    df_r <- read.csv(path_remote, stringsAsFactors = FALSE)
+    df_r <- read.csv(path_remote, stringsAsFactors = FALSE, encoding = 'UTF-8')
     df_r$location <- 'remote'
     df_t <- rbind(df_t, df_r)
   } else {
@@ -78,7 +79,7 @@ get_output <- function(dataframe = FALSE){
 #' @param render logical. whether to render automatically
 #' @param rproj logical. whether to created an .Rproj file automatically
 #' @return demo files to build with bookdown
-#' @importFrom utils download.file unzip read.csv
+#' @importFrom utils download.file unzip read.csv untar
 #' @export
 #' @examples
 #' bookdownplus(render = FALSE)
@@ -86,8 +87,8 @@ get_output <- function(dataframe = FALSE){
 #' @description
 #' Technically, `bookdownplus` is a collection and selector of R bookdown templates. `bookdownplus` helps you write academic journal articles, guitar books, chemical equations, mails, calendars, and diaries. R `bookdownplus` extends the features of `bookdown`, and simplifies the procedure. Users only have to choose a template, clarify the book title and author name, and then focus on writing the text. No need to struggle in YAML and LaTeX.
 #' - Before starting, you have to install `bookdown` package, and other software and packages (i.e. 'Pandoc', 'LaTeX', `rmarkdown`, `rticle`, `knitr`, etc.) which `bookdown` depends on. See the [official manual of `bookdown`](https://bookdown.org/yihui/bookdown/) for details.
-#' - Run `bookdownplus()` and specify the template with `template` argument, You will get some files (e.g. `index.Rmd`, `body.Rmd`, `bookdownplus.Rproj`) and folders in your working directory. Although there are many other arguments for `bookdownplus()`, you can simply ignore them if you use `bookdownplus` package for the first time.
-#' - Open `bookdownplus.Rproj` with RStudio. Now press `ctrl+shift+b` to build it. Your will get a book file named `*.pdf` in `_book/` folder.
+#' - Run `bookdownplus()` and specify the template with `template` argument, You will get some files (e.g. `index.Rmd`, `body.Rmd`) and folders in your working directory. Although there are many other arguments for `bookdownplus()`, you can simply ignore them if you use `bookdownplus` package for the first time.
+#' - Build it with bookdown. Your will get a book file named `*.pdf` in `_book/` folder.
 #' - Write your own text in `index.Rmd` and `body.Rmd`, and build your own lovely book.
 bookdownplus <- function(template = 'copernicus',
                          more_output = NULL,
@@ -104,13 +105,21 @@ bookdownplus <- function(template = 'copernicus',
   if(!template %in% template_all$name)
     return(message(paste0(template, ' is unavailable. Please check whether your spelling is correct. Run get_template() to see available templates.')))
 
-  if_remote <- template_all[template_all$name == template, 'location'] == 'remote'
-  if(if_remote) {
+  template_info <- template_all[template_all$name == template, ]
+  if(template_info$location == 'remote') {
     ###### get the remote template
-    remote_file <- paste0('https://github.com/pzhaonet/bookdownplus/raw/master/upload/', template, '/demo.zip')
-    download.file(remote_file, destfile = 'demo.zip')
-    unzip('demo.zip')
-    file.remove('demo.zip')
+    remote_file <- template_info$download
+    dest_file <- gregexpr('[^/]+$', remote_file)
+    dest_file <- substr(remote_file, dest_file[[1]][1], nchar(remote_file))
+    download.file(remote_file, dest_file)
+    file_type <- substr(dest_file, gregexpr('([^\\.]+)$', dest_file)[[1]][1], nchar(dest_file))
+    if(file_type == 'zip') {
+      unzip(dest_file)
+      file.remove(dest_file)
+    } else if(file_type =='gz') {
+      untar(dest_file)
+      file.remove(dest_file)
+    }
   } else {
     ###### get the locale template and prepare
 
@@ -221,8 +230,7 @@ bd <- function(template = NA){
     loc <- x$location
     # filter the templates for unix
     # if(.Platform$OS.type == 'unix') tl <- tl[tl %in% c('mdpi', 'copernicus', 'calendar', 'chemistry_zh', 'chemistry', 'dnd_dev', 'docsens', 'guitar', 'journal', 'mail', 'musix', 'nonpar', 'nte_zh', 'poem', 'rbasics', 'skak', 'classic', 'thesis_zh', 'pku_zh', 'ubt', 'zju_zh', 'crc', 'demo', 'mini', 'demo_zh')]
-    if(is.na(template[1])) template <- tl
-    if(!is.na(template[1])) {
+    if(is.na(template[1])) template <- tl else {
       for(i in template){
         if(i %in% tl){
           message(paste0('Generating a demo book from the "', i, '" template...........'))

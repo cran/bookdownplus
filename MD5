@@ -1,6 +1,7 @@
-70366e3127dcfed5af56692890107981 *DESCRIPTION
-528cf3bb77f622973a904406df977eab *NAMESPACE
-565755cdfff854c3e294db3d8ab4a335 *R/fun.R
+1e7749ea6d499dd74e7183bf892d230f *DESCRIPTION
+4a580d134f7dd2646b0edea6e4415426 *LICENSE
+1a884b61004e2b7a598db3e320baf54e *NAMESPACE
+4b804865b206c164322a84b55ea23861 *R/fun.R
 4579d3575185232d0fec168a21bbc564 *R/internal.R
 461d764b8e779d3d4576a0b03552499b *inst/bib/bib.bib
 00f34178e7a0f991cc77f9d486343732 *inst/images/bookdownplus-logo.pdf
@@ -10,7 +11,7 @@ c93daa33f95a6cfaa36f0ac4aa09ce87 *inst/images/logo.png
 f67ec3ba3192679243d05edcacdfa0a5 *inst/proj/body.Rmd
 97cdae6cfbf4820461345b0e6419695d *inst/proj/bookdownplus
 69cc8a9cdf7187bb23ebb4c21c38cebf *inst/proj/index.Rmd
-9ee120298d3a3419968e3ab6e75d784c *inst/templates/-list.csv
+9d154a5860cb927768878f40cc5e566b *inst/templates/-list.csv
 247bd309e764658209d1f0f567df1502 *inst/templates/classic.zip
 c2094a2a652659bef9f9abca9bc3ca89 *inst/templates/copernicus.zip
 598f15e8cff68768e0e9c77479f1b52b *inst/templates/crc.zip
@@ -40,7 +41,7 @@ cdb72fcb9b5f15970634cfa4682261da *inst/yml/_output_md.yml
 181ffa78598147d18b62c87405f1d519 *inst/yml/_output_word_document2.yml
 ad0f5516e134dc2853d86f9f79dcc224 *man/backup.Rd
 19abe75a69dc5de90afed58ee98da6e6 *man/bd.Rd
-7b5818f1832c32d156382eb1ec322ccf *man/bookdownplus.Rd
+8280908fb073438fd01b9dd997f19a9a *man/bookdownplus.Rd
 7bb4000afcd09129c37c9ec862f9e6f3 *man/copyfolder.Rd
 add50376e711c77aed356848995c3048 *man/create.Rd
 384d359e9e7d2fa9de9e006f4f1d6b83 *man/get_output.Rd
