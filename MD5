@@ -1,8 +1,8 @@
-741271b2474af927bc1209a081db9ab1 *DESCRIPTION
+06a739b40e5105912c927db931c198c3 *DESCRIPTION
 4a580d134f7dd2646b0edea6e4415426 *LICENSE
 95a33a4827fbede4dd2e903ffa46bf23 *NAMESPACE
-58b792654e68f678643912ee8dd84825 *R/fun.R
-4579d3575185232d0fec168a21bbc564 *R/internal.R
+a582405d18f8a908714617685e387d3e *R/fun.R
+7cafdc5d37234e58f348e8b14b22fea3 *R/internal.R
 461d764b8e779d3d4576a0b03552499b *inst/bib/bib.bib
 00f34178e7a0f991cc77f9d486343732 *inst/images/bookdownplus-logo.pdf
 aafedc509abee0b1696f3987e619791f *inst/images/bookdownplus-logopic.pdf
@@ -40,8 +40,8 @@ cbda2a2b2108b9178671acfc7c3352c7 *inst/yml/_output_html_document2.yml
 cdb72fcb9b5f15970634cfa4682261da *inst/yml/_output_md.yml
 181ffa78598147d18b62c87405f1d519 *inst/yml/_output_word_document2.yml
 ad0f5516e134dc2853d86f9f79dcc224 *man/backup.Rd
-19abe75a69dc5de90afed58ee98da6e6 *man/bd.Rd
-117861b2db2706b1bfb3a1c588cc8f2d *man/bookdownplus.Rd
+28b64d375c0deeb294a7157df1172303 *man/bd.Rd
+e94fda73bb332c80f12cfb0ed36cd852 *man/bookdownplus.Rd
 7bb4000afcd09129c37c9ec862f9e6f3 *man/copyfolder.Rd
 add50376e711c77aed356848995c3048 *man/create.Rd
 384d359e9e7d2fa9de9e006f4f1d6b83 *man/get_output.Rd

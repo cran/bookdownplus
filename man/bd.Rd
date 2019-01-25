@@ -4,10 +4,12 @@
 \alias{bd}
 \title{Show demos}
 \usage{
-bd(template = NA)
+bd(template = NA, to = ".")
 }
 \arguments{
 \item{template}{NA or character, templates to show}
+
+\item{to}{character. The destination directory for the bookdown project}
 }
 \value{
 demo files

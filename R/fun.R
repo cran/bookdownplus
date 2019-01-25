@@ -8,7 +8,7 @@
 #' @examples get_template()
 get_template <- function(){
   # local tempaltes
-  path_local <- paste0(path.package('bookdownplus'), '/templates/-list.csv')
+  path_local <- paste0(system.file(package = 'bookdownplus'), '/templates/-list.csv')
   df_t <- read.csv(path_local, stringsAsFactors = FALSE, encoding = 'UTF-8')
   df_t$location <- 'local'
   # remote templates on github
@@ -22,28 +22,6 @@ get_template <- function(){
     message('The github repo "pzhaonet/bookdownplus" cannot be connected. Thus only local templates are displayed.')
   }
   return(df_t)
-  ### get the template from the zip file names
-  # pckpath <- paste0(path.package('bookdownplus'), '/template')
-  # zipfiles <- list.files(path = pckpath, pattern = '\\.zip$')
-  # temp <- gsub('.zip', '', zipfiles)
-  # if (dataframe) {
-  #   txt <- NULL
-  #   txtfiles <- paste0(pckpath, '/', temp, '.txt')
-  #   for(i in txtfiles) {
-  #     if(file.exists(i))
-  #       newtxt <- paste0(readLines(i, encoding = 'UTF-8'), collapse = '')
-  #     else {
-  #       newtxt <- NA
-  #       # file.create(i)
-  #     }
-  #     txt <- c(txt, newtxt)
-  #   }
-  #   tempdf <- data.frame(i = 1:length(temp),
-  #                        template = temp,
-  #                        descript = txt)
-  #   return(tempdf)
-  # }
-  # return(temp)
 }
 
 #' Available output formats besides pdf_book
@@ -79,11 +57,19 @@ get_output <- function(dataframe = FALSE){
 #' @param output_name chracter. the name of the output files. If NA (default), the template name will be used.
 #' @param render logical. whether to render automatically
 #' @param rproj logical. whether to created an .Rproj file automatically
+#' @param to character. The destination directory for the bookdown project
+#' @param new logical. Whether create a new project. If FALSE, only render the existing book.
 #' @return demo files to build with bookdown
 #' @importFrom utils download.file unzip read.csv untar
 #' @export
 #' @examples
+#' \dontrun{
 #' bookdownplus(render = FALSE)
+#' for(i in get_template()[1:20, 1])
+#' bookdownplus(template = i,
+#'              more_output = more_output()[1:3],
+#'                           to = i)
+#' }
 #' @description
 #' Technically, `bookdownplus` is a collection and selector of R bookdown templates. `bookdownplus` helps you write academic journal articles, guitar books, chemical equations, mails, calendars, and diaries. R `bookdownplus` extends the features of `bookdown`, and simplifies the procedure. Users only have to choose a template, clarify the book title and author name, and then focus on writing the text. No need to struggle in YAML and LaTeX.
 #' - Before starting, you have to install `bookdown` package, and other software and packages (i.e. 'Pandoc', 'LaTeX', `rmarkdown`, `rticle`, `knitr`, etc.) which `bookdown` depends on. See the [official manual of `bookdown`](https://bookdown.org/yihui/bookdown/) for details.
@@ -96,7 +82,13 @@ bookdownplus <- function(template = 'copernicus',
                          author = 'author',
                          render = TRUE,
                          rproj = TRUE,
-                         output_name = NA) {
+                         output_name = NA,
+                         to = './',
+                         new = TRUE) {
+  oldwd <- getwd()
+  on.exit(setwd(oldwd))
+  if(!dir.exists(to)) dir.create(to)
+  setwd(to)
   if(template == 'discussion'){
     message('The template "discussion" is renamed as "copernicus".')
     template = 'copernicus'
@@ -122,8 +114,9 @@ bookdownplus <- function(template = 'copernicus',
   }
 
   book_filename <- ifelse(is.na(output_name), template, output_name)
-  pckpath <- paste0(path.package(package = 'bookdownplus'), '/')
+  pckpath <- paste0(system.file(package = 'bookdownplus'), '/')
 
+  if(new){
   ###### created the .Rproj file
   if(rproj) {
     mypath <- paste0(pckpath, 'proj/')
@@ -151,7 +144,7 @@ bookdownplus <- function(template = 'copernicus',
       file.remove(dest_file)
     }
   } else {
-    ###### get the locale template and prepare
+    ###### get the local template and prepare
 
     ###### copy folders and files to the working dir ######
     lapply(X = c('backup', 'bib', 'images'), FUN = copyfolder)
@@ -206,6 +199,7 @@ bookdownplus <- function(template = 'copernicus',
       file.copy('style/mdpi.bst', 'mdpi.bst')
     }
   }
+  }
 
   ###### render the book
   if (render) {
@@ -238,13 +232,14 @@ bookdownplus <- function(template = 'copernicus',
 #' Show demos
 #'
 #' @param template NA or character, templates to show
+#' @param to character. The destination directory for the bookdown project
 #'
 #' @return demo files
 #' @export
 #'
 #' @examples
 #' bd(NULL)
-bd <- function(template = NA){
+bd <- function(template = NA, to = '.'){
   if(is.null(template)){
     message('Please give a valid template name.')
   } else {
@@ -264,7 +259,7 @@ bd <- function(template = NA){
           } else {
             myoutput <- NULL
           }
-          bookdownplus(template = i, more_output = myoutput, render = TRUE, rproj = FALSE)
+          bookdownplus(template = i, more_output = myoutput, render = TRUE, rproj = FALSE, to = to)
           message(paste0('Done with "', i, '"!'))
         } else {
           message(paste(i, 'is unavailable. Please run "get_template()" to see available ones.'))
@@ -290,7 +285,7 @@ create <- function(template_name = 'new', bodyfile = 'body.Rmd', indexfile = 'in
   folders <- c('rmd', 'style', 'tex')
   files <- paste0(c('body_', 'index_', 'template_'), template_name, c('.Rmd', '.Rmd', '.tex'))
   for(i in folders) if(!dir.exists(i)) dir.create(i)
-  pckpath <- paste0(path.package(package = 'bookdownplus'), '/')
+  pckpath <- paste0(system.file(package = 'bookdownplus'), '/')
   mypath <- paste0(pckpath, 'proj/')
   for (i in c('body.Rmd', 'index.Rmd')) file.copy(from = paste0(mypath[dir.exists(mypath)][1], i), to = i)
   if(file.exists(texfile)) file.copy(texfile, paste0('tex/', files[3])) else message(paste(texfile, 'does not exist.'))
