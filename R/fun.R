@@ -347,3 +347,70 @@ more_output <- function(){
 mail_font <- function(){
   message('mail_font() is deprecated. Please see the details in the index.Rmd file of the "mail" template.')
 }
+
+
+#' Convert a bookdown project into a page down project
+#'
+#' @param book_dir the folder name of the rendered book files
+#' @param proj_path the path of the bookdown project
+#'
+#' @return a pagedown rmd file
+#' @importFrom xaringan inf_mr
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' bd2pd()
+#' }
+bd2pd <- function(proj_path = '.', book_dir = NA){
+  if(is.na(book_dir)) book_dir <- file.path(proj_path, '_book')
+  rmdfiles <- dir(proj_path, pattern = '\\.Rmd$', full.names = TRUE)
+  rmd_merge <- unlist(sapply(rmdfiles, function(x) readLines(x, encoding = 'UTF-8')))
+  get_yaml <- function (txt){
+    loc <- grep("^---", txt)
+    if (length(loc) == 0)
+      return(NULL)
+    txt[loc[1]:loc[2]]
+  }
+  rmd_yaml <- get_yaml(rmd_merge)
+  rmd_body <- rmd_merge[!rmd_merge %in% rmd_yaml]
+  rmd_yaml_main <- rmd_yaml[grep(c('^title|author|date|bibliography'), rmd_yaml)]
+  rmd_new <- c('---',
+               rmd_yaml_main,
+               "output:",
+               "  pagedown::html_paged:",
+               "    toc: true",
+               "    self_contained: false",
+               "paged-footnotes: true",
+               '---',
+               rmd_body)
+  filetemp <- file.path(book_dir, '_book_pagedown.Rmd')
+  writeLines(rmd_new, filetemp, useBytes = TRUE)
+  xaringan::inf_mr(filetemp)
+}
+
+
+#' Insert an image from a url
+#' @description This function is supposed to be used in R code chunks or inline R code expressions.
+#' - If the output is not pdf, then this function works the samge as `knitr::include_graphics()`.
+#' - If the output is pdf, then the image will be downloaded to the img_dir directory and inserted.
+#' - If the image is in gif format, then it will be converted into png before inserted into pdf.
+#' @param img_url The url of the image
+#' @param img_dir The path of the local image directory
+#'
+#' @return The same as the ` knitr::include_graphics()` function
+#' @importFrom magick image_write
+#' @import knitr
+#' @export
+include_image <- function(img_url, img_dir = 'images') {
+  file_name <- basename(img_url)
+  img_local <- file.path(img_dir, file_name)
+  if(!file.exists(img_local)) download.file(img_url, img_local, mode = 'wb')
+  if(grepl('\\.gif$', img_local)) {
+    giffile <- magick::image_read(img_local)
+    img_new <- gsub('\\.gif$', '\\.png', img_local)
+    magick::image_write(magick::image_convert(giffile, format = 'png'), img_new)
+    img_local <- img_new
+  }
+  knitr::include_graphics(ifelse(knitr::is_latex_output(), img_local, img_url))
+}
