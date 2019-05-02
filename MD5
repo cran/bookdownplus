@@ -1,7 +1,7 @@
-6b955cfe1971492ca01c767eaa79b8b1 *DESCRIPTION
+d892bbfa9745da6fe75001160c7727ec *DESCRIPTION
 4a580d134f7dd2646b0edea6e4415426 *LICENSE
 6177c6a5f98437f9ec45423448307897 *NAMESPACE
-fdcfad53f379f90ee68ff6f6b475e5ea *R/fun.R
+b4f1239308f327e8e52e9c458dbfa4d8 *R/fun.R
 7cafdc5d37234e58f348e8b14b22fea3 *R/internal.R
 461d764b8e779d3d4576a0b03552499b *inst/bib/bib.bib
 00f34178e7a0f991cc77f9d486343732 *inst/images/bookdownplus-logo.pdf
@@ -20,12 +20,12 @@ cc867b347481ce4879e41f339c8d69c3 *inst/templates/demo_zh.zip
 393e11aa3bd79d80057c90471663f96c *inst/templates/docsens.zip
 409deaa4dc23281e52569c495fecf597 *inst/templates/elsevier.zip
 f4f24aa08811b72c882bcf5099891e10 *inst/templates/journal.zip
-9c30a74fa08b089dba55c2732f313ee2 *inst/templates/mail.zip
+06675fef160c1092ce402cb953ffb35f *inst/templates/mail.zip
 141935a5e5e2903127fa1bc602fa28f2 *inst/templates/mdpi.zip
 0926d5dda8842ac8712a1330f2ca23f3 *inst/templates/mini.zip
 cb631e0e75f9107d09dc496183ba283d *inst/templates/nonpar.zip
 f1316c3561cc29c46a0a922c78d57fc9 *inst/templates/nte_zh.zip
-630a0062590a001e5447cf9c259d9aba *inst/templates/paper_zh.zip
+3309d5dbd71f8cd628c2a4644dbbf9e0 *inst/templates/paper_zh.zip
 233599ef499b744286f0b4190372197b *inst/templates/pku_zh.zip
 0817282a09a7c632c3a075c4bbe6471f *inst/templates/poem.zip
 34e0f7795b7468853ce8045e7b90241e *inst/templates/rbasics.zip

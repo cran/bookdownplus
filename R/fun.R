@@ -403,14 +403,19 @@ bd2pd <- function(proj_path = '.', book_dir = NA){
 #' @import knitr
 #' @export
 include_image <- function(img_url, img_dir = 'images') {
-  file_name <- basename(img_url)
-  img_local <- file.path(img_dir, file_name)
-  if(!file.exists(img_local)) download.file(img_url, img_local, mode = 'wb')
-  if(grepl('\\.gif$', img_local)) {
-    giffile <- magick::image_read(img_local)
-    img_new <- gsub('\\.gif$', '\\.png', img_local)
-    magick::image_write(magick::image_convert(giffile, format = 'png'), img_new)
-    img_local <- img_new
+  if(knitr::is_latex_output()){
+    file_name <- basename(img_url)
+    img_local <- file.path(img_dir, file_name)
+    # download
+    if(!file.exists(img_local)) download.file(img_url, img_local, mode = 'wb')
+    if(grepl('\\.gif$', img_local)) {
+      giffile <- magick::image_read(img_local)
+      img_new <- gsub('\\.gif$', '\\.png', img_local)
+      magick::image_write(magick::image_convert(giffile, format = 'png'), img_new)
+      img_local <- img_new
+    }
+    knitr::include_graphics(img_local)
+  } else {
+    knitr::include_graphics(img_url)
   }
-  knitr::include_graphics(ifelse(knitr::is_latex_output(), img_local, img_url))
 }
